@@ -9,7 +9,7 @@ This is a React component for interacting with large models through chat. The co
 ## Available Languages
 
 - [English](README.md)
-- [简体中文](README.zh-CN.md)
+- [简体中文](README.zh_CN.md)
 
 ## Features
 * Pure UI component, with state and logic contained within the [useChat hook](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-chat) in the [Vercel AI SDK](https://www.npmjs.com/package/ai)
