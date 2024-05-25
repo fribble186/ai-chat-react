@@ -2,34 +2,29 @@
 ![](https://img.shields.io/npm/v/ai-chat-react)
 ![](https://img.shields.io/github/stars/fribble186/ai-chat-react)
 
-This is a React component for interacting with large models through chat. The component allows users to input text, send it to a large model for processing, and display the model's response. It is suitable for creating interactive chat interfaces and can be easily integrated into any React application. It is intended to be used together with the [useChat hook](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-chat) in the [Vercel AI SDK](https://www.npmjs.com/package/ai).
+这是一个用于与大模型进行聊天交互的 React 组件。该组件允许用户输入文本，将其发送到大模型进行处理，并显示模型的回复。它适用于创建交互式聊天界面，可以轻松集成到任何 React 应用中。需要与 [Vercel AI SDK](https://www.npmjs.com/package/ai) 中的 [useChat 钩子](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-chat) 一起食用。
 
 <img src="images/normal-example.png" height=300/>
 
-## Available Languages
+## 功能特点
+* 纯 ui 组件，状态和逻辑都在 [Vercel AI SDK](https://www.npmjs.com/package/ai) 中的 [useChat 钩子](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-chat)中
+* cssinjs 组件由 styled-components 组成，使用者可通过 `styled-components` 和 `utils.getClassName` 轻松定制组件内所有样式
+* 可插拔设计，通过 `utils.setComponent` 轻松更换某个内部组件
+* 可通过 `utils.setSlot` 在预先定义好的地方插入自己的组件
 
-- [English](README.md)
-- [简体中文](README.zh-CN.md)
-
-## Features
-* Pure UI component, with state and logic contained within the [useChat hook](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-chat) in the [Vercel AI SDK](https://www.npmjs.com/package/ai)
-* CSS-in-JS components made with styled-components, allowing users to easily customize all styles within the component using `styled-components` and `utils.getClassName`
-* Plug-and-play design, with the ability to easily swap out an internal component using `utils.setComponent`
-* Ability to insert your own components in predefined places using `utils.setSlot`
-
-## Getting Started
-### Installation
-First, ensure that React and [ai](https://www.npmjs.com/package/ai) are already installed in your project. Then, add this component to your project
+## 开始使用
+### 安装
+首先，确保项目中已经安装了 React 和 [ai]((https://www.npmjs.com/package/ai))。然后，将此组件添加到你的项目中
 ``` js
 npm install ai-chat-react
 ```
-Or, if you're using yarn
+或者，如果你使用 yarn
 ``` js
 yarn add ai-chat-react
 ```
 
-### Example Code
-Below is a simple example of how to use `AIChatComponent` in your React application:
+### 示例代码
+下面是一个如何在你的 React 应用中使用 `AIChatComponent` 的简单示例：
 ``` jsx
 import React from 'react';
 import AIChatComponent from 'ai-chat-react'
@@ -42,10 +37,10 @@ const Index = () => {
 
 export default Index;
 ```
-Example of customizing styles using styled-component and utils/getClassName:
+结合使用 styled-compoennt 和 utils/getClassName 定制样式的示例：
 ``` jsx
 import React from 'react';
-import AIChatComponent, { utils } from 'ai-chat-react'
+import AIChatComponent， { utils } from 'ai-chat-react'
 import styled from 'styled-components';
 import { useChat } from 'ai/react';
 
@@ -64,7 +59,7 @@ const Index = () => {
 export default Index;
 ```
 
-Example of replacing an internal component using utils/setComponent:
+使用 utils/setComponent 更换内部组件的示例：
 ``` jsx
 import React from 'react';
 import AIChatComponent, {utils} from 'ai-chat-react'
@@ -79,7 +74,7 @@ const Index = () => {
 export default Index;
 ```
 
-Example of adding functionality using utils/setSlot:
+使用 utils/setSlot 添加功能的示例：
 ``` jsx
 import React from 'react';
 import AIChatComponent, {utils} from 'ai-chat-react'
@@ -94,14 +89,14 @@ const Index = () => {
 export default Index;
 ```
 
-Example in Next.js:
+在 nextjs 中的示例：
 ``` jsx
 import React, { memo } from 'react';
 import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import { useChat } from 'ai/react';
 
-// Since it's rendered asynchronously, use utils functionality also in dynamic, using utils getClassname functionality outside will not get the corresponding classname due to not being rendered yet
+// 因为是异步渲染，所以使用 utils 功能也在 dynamic 中做，在外面使用 utils getClassname 功能会因为还没渲染导致拿不到对应的 classname
 const ChatgptComponent = dynamic(() => import("ai-chat-react").then(C => {
   C.utils.setSlot('BetweenMessageBoxAndChatInputBox', () => (<span style={{ color: 'black' }}>BetweenMessageBoxAndChatInputBox</span>));
   const ModalContent = styled.div`
@@ -128,7 +123,7 @@ const ModalContentTitle = styled.div`
 `;
   return ({...chat}: React.ComponentProps<typeof C.default>) => (
     <ModalContent>
-        <ModalContentTitle>Chat with qianjie</ModalContentTitle>
+        <ModalContentTitle>与 qianjie 聊天</ModalContentTitle>
         {typeof document !== "undefined" && (
           <C.default {...chat}/>
         )}
@@ -145,24 +140,24 @@ const Index = () => {
 export default Index;
 ```
 
-### Configuration Options
-The `AIChatComponent` component accepts the following props for configuration:
+### 配置项
+`AIChatComponent` 组件接受以下 props 以供配置:
 
-From useChat:
-* `messages` (from useChat)
-* `error` (from useChat)
-* `input` (from useChat)
-* `handleInputChange` (from useChat)
-* `handleSubmit` (from useChat)
-* `isLoading` (from useChat)
+从 useChat 中获得：
+* `messages`(from useChat): 
+* `error`(from useChat): 
+* `input`(from useChat): 
+* `handleInputChange`(from useChat): 
+* `handleSubmit`(from useChat): 
+* `isLoading`(from useChat): 
 
-Internal component properties:
-* `MeAvatar` (React.ReactElement)
-* `GptAvatar` (React.ReactElement)
-* `sendText` (React.ReactElement)
+组件内部属性：
+* `MeAvatar`(React.ReactElement):
+* `GptAvatar`(React.ReactElement):
+* `sendText`(React.ReactElement):
 
-### Contributing
-We welcome all forms of contributions, whether it's feature requests, bug reports, or pull requests. Please ensure your code follows the project's coding standards.
+### 贡献
+我们欢迎所有形式的贡献，无论是功能请求、bug 报告还是拉取请求。请确保你的代码遵循项目的编码标准。
 
-### License
-This project is licensed under the MIT License. For more information, please see the LICENSE file.
+### 许可证
+此项目采用 MIT 许可证。有关更多信息，请查看 LICENSE 文件。
