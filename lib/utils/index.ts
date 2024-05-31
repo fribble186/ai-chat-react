@@ -1,5 +1,5 @@
 import type { ChatInputBoxProps } from "../components/chatInputBoxTypes";
-import type { MessageBoxProps, MessageProps, AvatarProps, BetweenAvatarAndMessageProps } from "../components/messageBoxTypes";
+import type { MessageBoxProps, MessageProps, AvatarProps, BetweenAvatarAndMessageProps, AfterMessageProps } from "../components/messageBoxTypes";
 import type { BetweenMessageBoxAndChatInputBoxProps } from "../type";
 
 type styledClass = 
@@ -45,6 +45,7 @@ export function getComponent<T extends keyof ComponentType>(componentName: T): C
 type SlotType = {
     BetweenMessageBoxAndChatInputBox?: React.FC<BetweenMessageBoxAndChatInputBoxProps>;
     BetweenAvatarAndMessage?: React.FC<BetweenAvatarAndMessageProps>;
+    AfterMessage?: React.FC<AfterMessageProps>;
 };
 const slots: SlotType = {};
 export function setSlot<T extends keyof SlotType>(slotName: T, component: SlotType[T]): void {

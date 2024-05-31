@@ -72,23 +72,25 @@ export const Avatar: React.FC<AvatarProps> = ({ avatar, size }) => (
         {avatar}
     </AvatarContainer>
 );
-const MessageBox: React.FC<MessageBoxProps> = ({
-    side = 'assistant',
-    messageContent,
-    MeAvatar,
-    GptAvatar,
-    isLoading,
-    error,
-    input,
-}) => {
+const MessageBox: React.FC<MessageBoxProps> = (props) => {
+    const {
+        side = 'assistant',
+        messageContent,
+        MeAvatar,
+        GptAvatar,
+        isLoading,
+        error,
+        input,
+    } = props;
     const AvatarComponent = getComponent('Avatar') || Avatar;
     const MessageComponent = getComponent('Message') || Message;
     const BetweenAvatarAndMessage = getSlot("BetweenAvatarAndMessage");
+    const AfterMessage = getSlot("AfterMessage")
 
     return (
         <MessageBoxContainer side={side}>
             <AvatarComponent avatar={side === 'assistant' ? GptAvatar : MeAvatar} />
-            {BetweenAvatarAndMessage ? <BetweenAvatarAndMessage isLoading={isLoading} error={error} input={input}/> : null}
+            {BetweenAvatarAndMessage ? <BetweenAvatarAndMessage {...props}/> : null}
             <MessageComponent 
                 side={side} 
                 messageContent={messageContent} 
@@ -96,6 +98,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({
                 error={error}
                 input={input}
             />
+            {AfterMessage ? <AfterMessage {...props}/> : null}
         </MessageBoxContainer>
     )
 };

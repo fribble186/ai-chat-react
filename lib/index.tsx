@@ -73,6 +73,7 @@ const AIChatComponent: React.FC<ChatgptComponentProps> = ({
                             isLoading={isLoading}
                             input={input}
                             error={error}
+                            message={message}
                         />
                     ))}
                 </MessagesContentContainer>
