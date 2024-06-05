@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import AIChatComponent, { utils } from './index.tsx'
 import styled from 'styled-components';
 import { useChat } from 'ai/react';
-// utils.setSlot('BetweenMessageBoxAndChatInputBox', () => (<span>BetweenMessageBoxAndChatInputBox</span>))
+utils.setSlot("AfterMessage", ({message}) => (<span>{message.createdAt?.toString()}</span>))
 // utils.setComponent('Avatar', () => <span>A</span>)
 
 const TestContainer = styled.div`
