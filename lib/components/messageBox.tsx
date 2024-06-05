@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import RehypeKatex from "rehype-katex";
+import RemarkMath from "remark-math";
+import RemarkBreaks from "remark-breaks";
 import RehypeHighlight from "rehype-highlight";
 import { setClassName, getComponent, getSlot } from "../utils";
 import {
@@ -12,6 +14,7 @@ import {
   AvatarProps,
 } from "./messageBoxTypes";
 import "highlight.js/styles/atom-one-dark.css";
+import "katex/dist/katex.min.css";
 
 const DefaultAvatarSize = 28;
 
@@ -60,15 +63,26 @@ export const MessageContainer = styled.div<{ side: RoleType }>`
 setClassName("MessageBoxContainer", MessageBoxContainer.styledComponentId);
 setClassName("AvatarContainer", AvatarContainer.styledComponentId);
 setClassName("MessageContainer", MessageContainer.styledComponentId);
+// @ts-ignore
+const preprocessMarkdown = (markdownText) => {
+  // Replace \[ with $$ and \] with $$ to ensure compatibility
+  const processedText = markdownText
+    .replace(/\\\[/g, "$$$") // Replace all occurrences of \[ with $$
+    .replace(/\\\]/g, "$$$") // Replace all occurrences of \] with $$
+    .replace(/\\\(/g, "$$$") // Replace all occurrences of ( with $$
+    .replace(/\\\)/g, "$$$"); // Replace all occurrences of ) with $$
+
+  return processedText;
+};
 
 export const Message: React.FC<MessageProps> = ({ side, messageContent }) => (
   <MessageContainer side={side!}>
     {typeof messageContent === "string" ? (
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[RemarkMath, remarkGfm, RemarkBreaks]}
         rehypePlugins={[RehypeKatex, RehypeHighlight]}
       >
-        {messageContent}
+        {preprocessMarkdown(messageContent)}
       </ReactMarkdown>
     ) : (
       messageContent
