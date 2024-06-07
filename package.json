@@ -1,6 +1,6 @@
 {
   "name": "ai-chat-react",
-  "version": "0.1.7",
+  "version": "0.2.6",
   "type": "module",
   "files": [
     "dist"
@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "highlight.js": "^11.9.0",
+    "lodash": "^4.17.21",
     "nanoid": "^5.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -48,6 +49,7 @@
     "vite-plugin-css-injected-by-js": "^3.5.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.4",
     "@types/node": "^20.12.12",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
